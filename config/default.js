@@ -3,9 +3,9 @@ const config = {
   port: 3000,
   // 数据库配置
   database: {
-    DATABASE: 'nodesql',
+    DATABASE: 'eternal',
     USERNAME: 'root',
-    PASSWORD: '123456',
+    PASSWORD: '1314520ch',
     PORT: '3306',
     HOST: 'localhost'
   }
