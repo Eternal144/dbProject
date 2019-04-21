@@ -9,6 +9,7 @@ const router = require('koa-router')
 const views = require('koa-views')
 const staticCache = require('koa-static-cache')
 const app = new Koa()
+app.use(require('kcors')())
 
 
 // session存储配置,存储在哪里？在哪个数据库
@@ -46,6 +47,8 @@ app.use(require('./routers/signin.js').routes())
 app.use(require('./routers/signup.js').routes())
 app.use(require('./routers/posts.js').routes())
 app.use(require('./routers/signout.js').routes())
+app.use(require('./routers/student.js').routes())
+app.use(require('./routers/people.js').routes())
 
 
 app.listen(config.port)

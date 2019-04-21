@@ -1,0 +1,18 @@
+{
+    "john":{
+        "sid":1,
+        "sname":"john",
+        "gender":"男",
+        "adm_age":18,
+        "adm_year":2017,
+        "class":1
+    },
+    "mary":{
+        "sid":2,
+        "sname":"mary",
+        "gender":"女",
+        "adm_age":18,
+        "adm_year":2017,
+        "class":2
+    }
+}

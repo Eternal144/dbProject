@@ -2,7 +2,6 @@ const userModel = require('../lib/mysql.js');
 const md5 = require('md5')
 const checkNotLogin = require('../middlewares/check.js').checkNotLogin
 const checkLogin = require('../middlewares/check.js').checkLogin
-const moment = require('moment');
 const fs = require('fs')
 
 exports.getSignup = async ctx => {
