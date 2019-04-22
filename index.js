@@ -48,8 +48,8 @@ app.use(require('./routers/signup.js').routes())
 app.use(require('./routers/posts.js').routes())
 app.use(require('./routers/signout.js').routes())
 app.use(require('./routers/student.js').routes())
-app.use(require('./routers/people.js').routes())
-
+app.use(require('./routers/getStudent.js').routes())
+app.use(require('./routers/addStudent.js').routes())
 
 app.listen(config.port)
 
