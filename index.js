@@ -42,14 +42,11 @@ app.use(bodyParser({
   formLimit: '1mb'
 }))
 
-//  路由
-app.use(require('./routers/signin.js').routes())
-app.use(require('./routers/signup.js').routes())
-app.use(require('./routers/posts.js').routes())
-app.use(require('./routers/signout.js').routes())
 app.use(require('./routers/student.js').routes())
-app.use(require('./routers/getStudent.js').routes())
-app.use(require('./routers/addStudent.js').routes())
+app.use(require('./routers/record.js').routes())
+app.use(require('./routers/grade.js').routes())
+app.use(require('./routers/course.js').routes())
+
 
 app.listen(config.port)
 
