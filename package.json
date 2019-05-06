@@ -1,7 +1,7 @@
 {
-  "name": "koa2-blog",
+  "name": "select",
   "version": "1.0.0",
-  "description": "blog",
+  "description": "dbProject",
   "main": "index.js",
   "directories": {
     "lib": "lib"

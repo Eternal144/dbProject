@@ -11,28 +11,46 @@ exports.getRecord = async ctx=>{
     let query = ctx.request.query
     if(query.sname){
         await userModel.getRecordsInfoByName(query.sname).then(async (data)=>{
-            //console.log(`get name ${query.name}`)
+            
             res_stand(ctx,data)
         })
-    }else if(query.id){
-        //console.log(`get sid ${query.id}`)
+    }else if(query.sid){
+
         await userModel.getRecordsInfoBySid(query.sid).then(async (data)=>{
             res_stand(ctx,data)
         })
     }  
 };
-//添加。
+//添加。  少一个sid和 传过来了学号或者姓名
 exports.insertRecord = async ctx=>{ 
-    const {sid,cid,select_year,grade} = ctx.request.body;
-    await userModel.insertRecord([sid,cid,select_year,grade]).then(async (data)=>{
-        console.log("发送过去了")
-        console.log(data);
-    })
+    console.log(ctx.request.body)
+    let body = ctx.request.body;
+     if(body.sname){//传过来名字
+        await userModel.getSidBySname(body.sname).then(async (data)=>{
+            body.sid = data[0].sid;
+            const {sid,cid,select_year,grade} = body;
+            console.log(body);
+            await userModel.insertRecord([sid,cid,select_year,grade]).then(async (data)=>{
+                console.log("发送过去了")
+                console.log(data);
+            })
+        }
+        )
+     }else if(body.sid){//传过来学号
+        await userModel.getSidByStudentId(body.sid).then(async (data)=>{
+            body.sid = data[0].sid;
+            const {sid,cid,select_year,grade} = body
+            await userModel.insertRecord([sid,cid,select_year,grade]).then(async (data)=>{
+                console.log("发送过去了")
+                console.log(data);
+            })
+        })
+     }
 }
 //由学号实现删除
 exports.deleteRecord = async ctx=>{
     let query = ctx.request.query
-    await userModel.deleteRecord(query.id).then(async (data)=>{
+    await userModel.deleteRecord(query.rid).then(async (data)=>{
         console.log(data)
     })
 }

@@ -29,9 +29,24 @@ exports.getCourseSat = async ctx=>{
     }
 }
 
+//选出适合
+exports.getFitCourse = async ctx =>{
+    console.log(ctx)
+    let query = ctx.request.query
+    if(query.sname){
+        await userModel.getFitCourseBySname(query.sname).then(async (data)=>{
+            res_stad(ctx,data)
+        })
+    }else if(query.sid){
+        await userModel.getFitCourseBySid(query.sid).then(async (data)=>{
+            res_stad(ctx,data)
+        })
+    }
+}
+
 exports.insertCourse = async ctx=>{ 
-    const {course_id,canme,tname,redits,grade,cancle_year } = ctx.request.body;
-    await userModel.insertCourse([course_id,canme,tname,redits,grade,cancle_year]).then(async (data)=>{
+    const {course_id,canme,tname,redits,grade,cancel_year } = ctx.request.body;
+    await userModel.insertCourse([course_id,canme,tname,redits,grade,cancel_year]).then(async (data)=>{
         console.log("发送过去了")
         console.log(data);
     })
@@ -54,6 +69,7 @@ exports.updateCourse = async ctx=>{
     setString = setString.substring(0,setString.length-1);
     console.log(setString)
     await userModel.updateCourse(body.sid,setString).then(async (data)=>{
+        //const {error, results, fields} = data;
         console.log(data)
     })
 }
