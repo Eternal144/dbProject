@@ -1,6 +1,7 @@
 const router = require('koa-router')()
 const controller = require('../controller/c-course.js')
 
+router.get('/api/info/allCourse',controller.getAllCourse)
 //查询课程相关
 router.get('/api/info/course',controller.getCourse)
 //查询该学生已选择的。
@@ -10,6 +11,6 @@ router.get('/api/fit/course',controller.getFitCourse)
 
 router.post('/api/insert/course',controller.insertCourse)
 router.delete('/api/delete/course',controller.deleteCourse)
-router.put('/api/update/course',controller.updateCourse)
+router.post('/api/update/course',controller.updateCourse)
 
 module.exports = router;

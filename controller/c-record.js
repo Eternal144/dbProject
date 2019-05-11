@@ -1,7 +1,14 @@
 const userModel = require('../lib/mysql.js');
 const res_stand = require('./res_standard')
+
+
+const dSuccess = "删除成功"
+const upDateSuccess = "更新成功"
+const iSuccess = "选课成功"
+
+
 exports.getAllRecord = async ctx=>{
-    console.log(ctx);
+    // console.log(ctx);
     await userModel.getAllReocrd().then(async (data)=>{
         res_stand(ctx,data)
     })
@@ -11,7 +18,7 @@ exports.getRecord = async ctx=>{
     let query = ctx.request.query
     if(query.sname){
         await userModel.getRecordsInfoByName(query.sname).then(async (data)=>{
-            
+            //mysql的返回
             res_stand(ctx,data)
         })
     }else if(query.sid){
@@ -29,10 +36,13 @@ exports.insertRecord = async ctx=>{
         await userModel.getSidBySname(body.sname).then(async (data)=>{
             body.sid = data[0].sid;
             const {sid,cid,select_year,grade} = body;
-            console.log(body);
             await userModel.insertRecord([sid,cid,select_year,grade]).then(async (data)=>{
-                console.log("发送过去了")
-                console.log(data);
+                res_stand(ctx,data,iSuccess);
+                // ctx.body = {
+                //     code: 200,
+                //     message: '选课成功'
+                // }
+                
             })
         }
         )
@@ -41,8 +51,7 @@ exports.insertRecord = async ctx=>{
             body.sid = data[0].sid;
             const {sid,cid,select_year,grade} = body
             await userModel.insertRecord([sid,cid,select_year,grade]).then(async (data)=>{
-                console.log("发送过去了")
-                console.log(data);
+                res_stand(ctx,data,iSuccess);
             })
         })
      }
@@ -51,13 +60,16 @@ exports.insertRecord = async ctx=>{
 exports.deleteRecord = async ctx=>{
     let query = ctx.request.query
     await userModel.deleteRecord(query.rid).then(async (data)=>{
-        console.log(data)
+        //这里只有成功的嘛
+        res_stand(ctx,data,dSuccess);
+        
+
     })
 }
 //更新学生信息
 exports.updateRecord = async ctx=>{
     let body = ctx.request.body
     await userModel.updateRecord(body).then(async (data)=>{
-        console.log(data)
+        res_stand(ctx,data,upDateSuccess)
     })
 }

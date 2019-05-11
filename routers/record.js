@@ -6,7 +6,7 @@ router.get('/api/situation/record',controller.getRecord)
 
 router.post('/api/insert/record',controller.insertRecord)
 router.delete('/api/delete/record',controller.deleteRecord)
-router.put('/api/update/record',controller.updateRecord)
+router.post('/api/update/record',controller.updateRecord)
 
 
 module.exports = router;
