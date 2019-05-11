@@ -33,9 +33,23 @@ exports.getStudent = async ctx=>{
 exports.insertStudent = async ctx=>{ 
     console.log(ctx.request.body);
     const {student_id,sname,gender,adm_age,adm_year,classroom } = ctx.request.body;
-    await userModel.insertStudent([student_id,sname,gender,adm_age,adm_year,classroom]).then(async (data)=>{
-        res_stand(ctx,data,iSuccess)
+    
+    await userModel.getBaseInfoBySid(student_id).then(async (data)=>{
+        if (data.length == 0) {
+            await userModel.insertStudent([student_id,sname,gender,adm_age,adm_year,classroom]).then(async (data)=>{
+                res_stand(ctx,data,iSuccess)
+            })
+        } else {
+            // 学生已经存在 这咋咩呀 咋报错呀
+            ctx.response.type = 'application/json'
+            ctx.body = {
+                code:400,
+                data: [],
+                message: '插入失败，学号已存在'
+            };
+        }
     })
+
 }
 //由学号实现删除
 exports.deleteStudent = async ctx=>{
